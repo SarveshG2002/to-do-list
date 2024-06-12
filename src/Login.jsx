@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -7,6 +7,15 @@ function LoginPage() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // Check if username exists in localStorage
+        const username = localStorage.getItem('username');
+        if (username) {
+            // Navigate to dashboard if username exists
+            navigate('/dashboard');
+        }
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
