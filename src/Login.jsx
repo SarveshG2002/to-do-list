@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function LoginPage() {
 
@@ -7,10 +8,18 @@ function LoginPage() {
     const [password,setPassword] = useState("");
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("Form Submitted");
-        if(email=="admin@gmail.com" && password == "1234"){
+        const response = await axios.post('http://192.168.0.108:8080/api/login', {
+            username: email,
+            password: password
+        });
+
+        console.log(response.data);
+        
+
+        if(response.data.status == "success"){
             console.log("Login Successsfull");
             navigate('/dashboard');
         }else{
