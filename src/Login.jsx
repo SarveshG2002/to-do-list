@@ -1,33 +1,37 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function LoginPage() {
-
-    const [email,setEmail] = useState("");
-    const [password,setPassword] = useState("");
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Form Submitted");
-        const response = await axios.post('http://192.168.0.108:8080/api/login', {
-            username: email,
-            password: password
-        });
+        try {
+            console.log("Form Submitted");
+            const response = await axios.post('http://192.168.0.108:8080/api/login', {
+                username: email,
+                password: password,
+            });
 
-        console.log(response.data);
-        
+            console.log(response.data);
 
-        if(response.data.status == "success"){
-            console.log("Login Successsfull");
-            navigate('/dashboard');
-        }else{
-            console.log("Username Or Password Wrong")
-
+            if (response.data.status === 'success') {
+                console.log("Login Successful");
+                localStorage.setItem('username', email);
+                navigate('/dashboard');
+            } else {
+                console.log("Username Or Password Wrong");
+                setError('Invalid username or password');
+            }
+        } catch (error) {
+            console.error("Error during login:", error);
+            setError('An error occurred. Please try again.');
         }
-    }
-
+    };
 
     return (
         <div className="container">
@@ -36,18 +40,29 @@ function LoginPage() {
                     <div className="card">
                         <div className="card-body">
                             <h2 className="card-title text-center mb-4">Login</h2>
+                            {error && <div className="alert alert-danger" role="alert">{error}</div>}
                             <form onSubmit={handleSubmit}>
                                 <div className="mb-3">
                                     <label htmlFor="email" className="form-label">Email address</label>
-                                    <input type="email" className="form-control" id="email" placeholder="Enter email" onChange={(e)=>{
-                                        setEmail(e.target.value)
-                                    }}/>
+                                    <input 
+                                        type="email" 
+                                        className="form-control" 
+                                        id="email" 
+                                        placeholder="Enter email" 
+                                        value={email} 
+                                        onChange={(e) => setEmail(e.target.value)} 
+                                    />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="password" className="form-label">Password</label>
-                                    <input type="password" className="form-control" id="password" placeholder="Password" onChange={(e)=>{
-                                        setPassword(e.target.value)
-                                    }}/>
+                                    <input 
+                                        type="password" 
+                                        className="form-control" 
+                                        id="password" 
+                                        placeholder="Password" 
+                                        value={password} 
+                                        onChange={(e) => setPassword(e.target.value)} 
+                                    />
                                 </div>
                                 <div className="mb-3 form-check">
                                     <input type="checkbox" className="form-check-input" id="remember" />

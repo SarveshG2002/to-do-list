@@ -1,7 +1,9 @@
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Signup from './Signup';
 import Login from './Login';
+import Signup from './Signup'
 import Dashboard from './Dashboard';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
   return (
@@ -9,8 +11,8 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/signup" element={<Signup />} />
-          <Route path="/" element={<Login />} />
-          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<ProtectedRoute component={Dashboard} />} />
           {/* Other routes */}
         </Routes>
       </div>
