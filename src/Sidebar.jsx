@@ -4,15 +4,21 @@ import './Sidebar.css';
 function Sidebar(){
     return(
         <aside>
-            <div>
+            <div className="sideEle sideEleSelected">
+                Inbox
+            </div>
+            <div className="sideEle">
                 Today
             </div>
-            <div>
-                Today
+
+            <div className="sideEle">
+                Upcomming
             </div>
-            <div>
-                Today
+            <div className="sideEle">
+                Daily Task
             </div>
+            
+            
         </aside>
     )
 }
