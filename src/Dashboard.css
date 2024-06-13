@@ -1,0 +1,5 @@
+.mainDiv{
+    display: grid;
+    grid-template-columns: 300px auto;
+    height: 94vh;
+}

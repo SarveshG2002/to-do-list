@@ -1,11 +1,15 @@
 import React from "react";
 import Navbar from "./Navbar";
+import Sidebar from "./Sidebar";
+import './Dashboard.css';
 
 function Dashboard(){
     return (
         <>
             <Navbar />
-            To Do List
+            <div className="mainDiv">
+                <Sidebar />
+            </div>
         </>
     );
 }

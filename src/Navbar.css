@@ -1,7 +1,7 @@
 nav{
     width: 100%;
     padding: 10px;
-    background-color: black;
+    background-color: #333333;
     color: aliceblue;
     display: flex;
     align-items: center;
@@ -13,6 +13,17 @@ nav .navele{
     /* width: 50%; */
     display: flex;
     align-items: center;
+}
+
+nav .navele .username{
+    width: 200px;
+    text-align: center;
+    /* border: 0px 0px 1px 0px ; */
+    /* border-right: 1px solid white; */
+    padding: 0px;
+    margin: 0px;
+    /* height: 100%; */
+
 }
 
 
@@ -41,7 +52,7 @@ nav .searchBar input{
     color: aliceblue;
     cursor: pointer;
     margin-right: 10px; /* Move the logout button to the right */
-    background-color: red;
+    background-color: rgb(255, 48, 48);
 
 }
 
