@@ -5,8 +5,18 @@ nav{
     color: aliceblue;
     display: flex;
     align-items: center;
-    /* justify-content: space-between; */
+    justify-content: space-between;
+    /* justify-content: ; */
 }
+
+nav .navele{
+    /* width: 50%; */
+    display: flex;
+    align-items: center;
+}
+
+
+
 nav .searchBar input{
     width: 100%;
             display: block;
@@ -25,9 +35,13 @@ nav .searchBar input{
 
 .logoutButton {
     background-color: transparent;
+    border-radius: 2px;
     border: none;
+    padding: 2px 10px;
     color: aliceblue;
     cursor: pointer;
     margin-right: 10px; /* Move the logout button to the right */
+    background-color: red;
+
 }
 
