@@ -1,22 +1,22 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './Sidebar.css';
 
 function Sidebar() {
     return (
         <aside>
-            <Link to="/dashboard/inbox" className="sideEle sideEleSelected">
+            <NavLink to="/dashboard/inbox" className={({ isActive }) => isActive ? 'sideEle sideEleSelected' : 'sideEle'}>
                 <div>Inbox</div>
-            </Link>
-            <Link to="/dashboard/today" className="sideEle">
+            </NavLink>
+            <NavLink to="/dashboard/today" className={({ isActive }) => isActive ? 'sideEle sideEleSelected' : 'sideEle'}>
                 <div>Today</div>
-            </Link>
-            <Link to="/dashboard/upcoming" className="sideEle">
+            </NavLink>
+            <NavLink to="/dashboard/upcoming" className={({ isActive }) => isActive ? 'sideEle sideEleSelected' : 'sideEle'}>
                 <div>Upcoming</div>
-            </Link>
-            <Link to="/dashboard/daily-task" className="sideEle">
+            </NavLink>
+            <NavLink to="/dashboard/daily-task" className={({ isActive }) => isActive ? 'sideEle sideEleSelected' : 'sideEle'}>
                 <div>Daily Task</div>
-            </Link>
+            </NavLink>
         </aside>
     );
 }

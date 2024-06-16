@@ -11,9 +11,16 @@ aside{
 aside .sideEle{
     padding: 10px;
     width: 80%;
-    
+    text-decoration: none;
+    color: aliceblue;
+    margin-top: 10px;
+}
+
+aside .sideEle:not(.sideEleSelected):hover{
+    background-color: #363636;
 }
 
 aside .sideEleSelected{
-    background-color: #363636;
+    color: #363636;
+    background-color: aliceblue;
 }
