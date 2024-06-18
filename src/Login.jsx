@@ -13,7 +13,7 @@ function LoginPage() {
         const username = localStorage.getItem('username');
         if (username) {
             // Navigate to dashboard if username exists
-            navigate('/dashboard');
+            navigate('/dashboard/inbox');
         }
     }, []);
 
