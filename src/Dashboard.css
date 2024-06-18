@@ -25,7 +25,7 @@
     width: 90%;
 }
 
-.new-add input {
+.new-add textarea {
     width: 100%;
     display: block;
     border: none;
@@ -37,11 +37,17 @@
     color: aliceblue;
 }
 
-.new-add input:focus {
+.new-add textarea:focus {
 
     background-color: #1e1e1e;
     color: aliceblue;
 }
+
+.to-do{
+    margin-top: 20px;
+    width: 90%;
+}
+
 
 
 

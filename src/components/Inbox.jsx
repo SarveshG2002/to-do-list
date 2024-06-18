@@ -5,9 +5,16 @@ function Inbox() {
         <>
             <div className='new-add'>
                 <div class="form-group required">
-                    <input type="text" name="designation_name" class="form-control" id="designation_name" placeholder="Enter Name" required="" minlength="3" maxlength="30" />
+                    {/* <input type="text" className='form-control'/> */}
+                    <textarea></textarea>
                 </div>
                 <button className='btn btn-primary mt-3'>Add</button>
+            </div>
+
+            <div className='to-do'>
+                <div className='Heading'>
+                    Today Task
+                </div>
             </div>
            
         </>
