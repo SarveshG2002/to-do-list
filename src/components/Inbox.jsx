@@ -15,6 +15,13 @@ function Inbox() {
                 <div className='Heading'>
                     Today Task
                 </div>
+                <div className='task'>
+                    <textarea></textarea>
+                    <div>
+                        <input type='checkbox' id="check1"/> &nbsp;
+                        <label for="check1">Done</label>
+                    </div>
+                </div>
             </div>
            
         </>

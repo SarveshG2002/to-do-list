@@ -48,6 +48,28 @@
     width: 90%;
 }
 
+.to-do .task{
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.to-do .task textarea {
+    width: 90%;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #999;
+    /* padding: 6px 30px; */
+    font-family: Poppins;
+    box-sizing: border-box;
+    background-color: #1e1e1e;
+    color: aliceblue;
+}
+
 
 
 
