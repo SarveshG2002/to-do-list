@@ -21,7 +21,7 @@ function LoginPage() {
         e.preventDefault();
         try {
             console.log("Form Submitted");
-            const response = await axios.post('http://192.168.0.108:8080/api/login', {
+            const response = await axios.post('http://192.168.0.104:8080/api/login', {
                 username: email,
                 password: password,
             });
