@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { BASE_URL } from './components/Host.jsx';
 
 function LoginPage() {
     const [email, setEmail] = useState('');
@@ -21,7 +22,7 @@ function LoginPage() {
         e.preventDefault();
         try {
             console.log("Form Submitted");
-            const response = await axios.post('http://192.168.0.104:8080/api/login', {
+            const response = await axios.post(`${BASE_URL}/api/login`, {
                 username: email,
                 password: password,
             });
