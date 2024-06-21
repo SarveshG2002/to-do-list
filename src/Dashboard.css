@@ -46,6 +46,17 @@
 .to-do{
     margin-top: 20px;
     width: 90%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.to-do .taskGroup{
+    width: 40%;
+}
+
+.to-do .Heading{
+    font-size: 30px;
+    text-align: center;
 }
 
 .to-do .task{
@@ -59,7 +70,7 @@
 }
 
 .to-do .task textarea {
-    width: 90%;
+    width: 80%;
     display: block;
     border: none;
     border-bottom: 1px solid #999;
