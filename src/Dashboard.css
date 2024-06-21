@@ -51,7 +51,7 @@
 }
 
 .to-do .taskGroup{
-    width: 40%;
+    width: 100%;
 }
 
 .to-do .Heading{
@@ -70,7 +70,7 @@
 }
 
 .to-do .task button{
-    
+    background-color: ;
 }
 
 .to-do .task textarea {
