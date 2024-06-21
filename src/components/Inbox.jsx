@@ -3,8 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { BASE_URL } from './Host.jsx';
 function Inbox() {
     const [text, setText] = useState("");
+    // const [updateText, setUpdateText] = useState("");
+    // const [updateId, setUpdateId] = useState("");
     const [tasks, setTasks] = useState([]);
     const [error, setError] = useState("");
+    const [updatedTasks,setUpdatedTasks] = useState({});
 
     useEffect(() => {
         fetchTasks();
@@ -52,10 +55,37 @@ function Inbox() {
         }
     }
 
+    const handleUpdateChange = (taskId, value) => {
+        setUpdatedTasks({
+            ...updatedTasks,
+            [taskId]: value
+        });
+    };
+
+    const handleUpdate = async (taskId) => {
+        try {
+            const updatedTaskText = updatedTasks[taskId];
+            const response = await axios.post(`${BASE_URL}/api/updateTask`, {
+                id: taskId,
+                task: updatedTaskText
+            });
+            if (response.data.success) {
+                fetchTasks(); // Refresh tasks after update
+                // Optionally clear updatedTasks state after successful update
+                setUpdatedTasks({}); // Clear updatedTasks state
+            } else {
+                setError(response.data.message);
+            }
+        } catch (error) {
+            console.error("Error updating task:", error);
+            setError('An error occurred. Please try again.');
+        }
+    };
+
     return (
         <>
             <form className='new-add' onSubmit={handleSubmit}>
-                <div class="form-group required">
+                <div className="form-group required">
                     {/* <input type="text" className='form-control'/> */}
                     <textarea value={text} onChange={(e) => setText(e.target.value)}></textarea>
                 </div>
@@ -69,10 +99,13 @@ function Inbox() {
                     </div>
                     {tasks.map(task => (
                         <div className='task' key={task.id}>
-                            <textarea defaultValue={task.task}></textarea>
+                            <textarea defaultValue={task.task} onChange={(e)=>handleUpdateChange(task.id,e.target.value)}></textarea>
                             <div>
-                                <input type='checkbox' id={`check${task.id}`} defaultChecked={task.status === 'complete'} /> &nbsp;
-                                <label htmlFor={`check${task.id}`}>Done</label>
+                                <div>
+                                    <input type='checkbox' id={`check${task.id}`} defaultChecked={task.status === 'complete'} /> &nbsp;
+                                    <label htmlFor={`check${task.id}`}>Done</label>
+                                </div>
+                                <button className='btn btn-primary mt-1' onClick={(e) => handleUpdate(task.id)}>Update</button>
                             </div>
                         </div>
                     ))}

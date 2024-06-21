@@ -69,6 +69,10 @@
     justify-content: space-around;
 }
 
+.to-do .task button{
+    
+}
+
 .to-do .task textarea {
     width: 80%;
     display: block;
