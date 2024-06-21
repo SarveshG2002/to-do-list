@@ -7,7 +7,7 @@ function Inbox() {
     // const [updateId, setUpdateId] = useState("");
     const [tasks, setTasks] = useState([]);
     const [error, setError] = useState("");
-    const [updatedTasks,setUpdatedTasks] = useState({});
+    const [updatedTasks, setUpdatedTasks] = useState({});
 
     useEffect(() => {
         fetchTasks();
@@ -82,6 +82,32 @@ function Inbox() {
         }
     };
 
+    const handleStatusChange = async (taskId, newStatus) => {
+        console.log("status change")
+        try {
+            const response = await axios.post(`${BASE_URL}/api/updateTaskStatus`, {
+                taskId: taskId,
+                newStatus: newStatus
+            });
+            console.log(response.data);
+            if (response.data.success) {
+                // Update tasks state after successful update
+                const updatedTasks = tasks.map(task => {
+                    if (task.id === taskId) {
+                        return { ...task, status: newStatus };
+                    }
+                    return task;
+                });
+                setTasks(updatedTasks);
+            } else {
+                setError(response.data.message);
+            }
+        } catch (error) {
+            console.error("Error updating task status:", error);
+            setError('An error occurred. Please try again.');
+        }
+    };
+
     return (
         <>
             <form className='new-add' onSubmit={handleSubmit}>
@@ -99,30 +125,36 @@ function Inbox() {
                     </div>
                     {tasks.map(task => (
                         <div className='task' key={task.id}>
-                            <textarea defaultValue={task.task} onChange={(e)=>handleUpdateChange(task.id,e.target.value)}></textarea>
+                            <textarea defaultValue={task.task} onChange={(e) => handleUpdateChange(task.id, e.target.value)}></textarea>
                             <div>
                                 <div>
-                                    <input type='checkbox' id={`check${task.id}`} defaultChecked={task.status === 'complete'} /> &nbsp;
+                                    <input 
+                                        type='checkbox' 
+                                        id={`check${task.id}`} 
+                                        defaultChecked={task.status === 'complete'} 
+                                        onChange={(e) => handleStatusChange(task.id, e.target.checked ? 'complete' : 'incomplete')}
+                                        /> &nbsp;
                                     <label htmlFor={`check${task.id}`}>Done</label>
                                 </div>
+                                
                                 <button className='btn btn-primary mt-1' onClick={(e) => handleUpdate(task.id)}>Update</button>
                             </div>
                         </div>
                     ))}
                 </div>
-                <div  className='taskGroup'>
+                <div className='taskGroup'>
                     <div className='Heading'>
                         Daily Task
                     </div>
-                    
-                        <div className='task' >
-                            <textarea ></textarea>
-                            <div>
-                                <input type='checkbox' /> &nbsp;
-                                <label >Done</label>
-                            </div>
+
+                    <div className='task' >
+                        <textarea ></textarea>
+                        <div>
+                            <input type='checkbox' /> &nbsp;
+                            <label >Done</label>
                         </div>
-                    
+                    </div>
+
                 </div>
             </div>
 
