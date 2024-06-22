@@ -12,7 +12,7 @@ function Sidebar() {
                 <div>Today</div>
             </NavLink>
             <NavLink to="/dashboard/upcoming" className={({ isActive }) => isActive ? 'sideEle sideEleSelected' : 'sideEle'}>
-                <div>Upcoming</div>
+                <div>Reminders</div>
             </NavLink>
             <NavLink to="/dashboard/daily-task" className={({ isActive }) => isActive ? 'sideEle sideEleSelected' : 'sideEle'}>
                 <div>Daily Task</div>

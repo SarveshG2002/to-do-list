@@ -123,25 +123,33 @@ function Inbox() {
                     <div className='Heading'>
                         Today Specific Task
                     </div>
-                    {tasks.map(task => (
-                        <div className='task' key={task.id}>
-                            <textarea defaultValue={task.task} onChange={(e) => handleUpdateChange(task.id, e.target.value)}></textarea>
-                            <div>
+                    {tasks.length === 0 ? (
+                        <div style={{fontSize:'20px', textAlign: 'center', marginTop: '35px'}}>Don't have any tasks</div>
+                    ) : (
+                        tasks.map(task => (
+                            <div className='task' key={task.id}>
+                                <textarea
+                                    defaultValue={task.task}
+                                    onChange={(e) => handleUpdateChange(task.id, e.target.value)}
+                                ></textarea>
                                 <div>
-                                    <input 
-                                        type='checkbox' 
-                                        id={`check${task.id}`} 
-                                        defaultChecked={task.status === 'complete'} 
-                                        onChange={(e) => handleStatusChange(task.id, e.target.checked ? 'complete' : 'incomplete')}
+                                    <div>
+                                        <input
+                                            type='checkbox'
+                                            id={`check${task.id}`}
+                                            defaultChecked={task.status === 'complete'}
+                                            onChange={(e) => handleStatusChange(task.id, e.target.checked ? 'complete' : 'incomplete')}
                                         /> &nbsp;
-                                    <label htmlFor={`check${task.id}`}>Done</label>
+                                        <label htmlFor={`check${task.id}`}>Done</label>
+                                    </div>
+
+                                    <button className='btn btn-primary mt-1' onClick={() => handleUpdate(task.id)}>Update</button>
                                 </div>
-                                
-                                <button className='btn btn-primary mt-1' onClick={(e) => handleUpdate(task.id)}>Update</button>
                             </div>
-                        </div>
-                    ))}
+                        ))
+                    )}
                 </div>
+
                 <div className='taskGroup'>
                     <div className='Heading'>
                         Daily Task
