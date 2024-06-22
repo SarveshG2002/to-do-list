@@ -1,7 +1,9 @@
 import React from 'react';
 
 function Upcoming() {
-    return <div>Upcoming Page</div>;
+    return (
+        <div>Upcoming Page</div>
+    );
 }
 
 export default Upcoming;

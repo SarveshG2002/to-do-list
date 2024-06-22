@@ -6,7 +6,7 @@ import Inbox from "./components/Inbox";
 import Today from "./components/Today";
 import Upcoming from "./components/Upcoming";
 import DailyTask from "./components/DailyTask";
-import './Dashboard.css';
+import './assets/css/Dashboard.css';
 
 function Dashboard() {
     return (
