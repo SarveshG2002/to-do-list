@@ -11,13 +11,13 @@ function Upcoming() {
     const [updatedTasks, setUpdatedTasks] = useState({});
 
     useEffect(() => {
-        // fetchTasks();
+        fetchTasks();
     }, []);
 
     const fetchTasks = async () => {
         try {
             const username = localStorage.getItem('username');
-            const response = await axios.post(`${BASE_URL}/api/getTodayTasks`, {
+            const response = await axios.post(`${BASE_URL}/api/getdailytasks`, {
                 username: username
             });
             console.log(response.data)
@@ -124,7 +124,7 @@ function Upcoming() {
                     
                     {tasks.map(task => (
                         <div className='task' key={task.id}>
-                            <textarea defaultValue={task.task} onChange={(e) => handleUpdateChange(task.id, e.target.value)}></textarea>
+                            <textarea defaultValue={task.dailytask} onChange={(e) => handleUpdateChange(task.id, e.target.value)}></textarea>
                             <div>
                                 <div>
                                     <input 
