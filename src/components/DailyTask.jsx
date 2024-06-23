@@ -40,7 +40,7 @@ function Upcoming() {
             // if (!username) {
             //     throw new Error('Username not found in localStorage');
             // }
-            const response = await axios.post(`${BASE_URL}/api/addtodayTask`, {
+            const response = await axios.post(`${BASE_URL}/api/adddailytask`, {
                 username: username,
                 task: text
             })
