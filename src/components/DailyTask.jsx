@@ -66,8 +66,9 @@ function Upcoming() {
     const handleUpdate = async (taskId) => {
         try {
             const updatedTaskText = updatedTasks[taskId];
-            const response = await axios.post(`${BASE_URL}/api/updateTask`, {
-                id: taskId,
+            const response = await axios.post(`${BASE_URL}/api/updateDailytask`, {
+                task_id: taskId,
+                username: localStorage.getItem("username"),
                 task: updatedTaskText
             });
             if (response.data.success) {
@@ -126,16 +127,6 @@ function Upcoming() {
                         <div className='task' key={task.id}>
                             <textarea defaultValue={task.dailytask} onChange={(e) => handleUpdateChange(task.id, e.target.value)}></textarea>
                             <div>
-                                <div>
-                                    <input 
-                                        type='checkbox' 
-                                        id={`check${task.id}`} 
-                                        defaultChecked={task.status === 'complete'} 
-                                        onChange={(e) => handleStatusChange(task.id, e.target.checked ? 'complete' : 'incomplete')}
-                                        /> &nbsp;
-                                    <label htmlFor={`check${task.id}`}>Done</label>
-                                </div>
-                                
                                 <button className='btn btn-primary mt-1' onClick={(e) => handleUpdate(task.id)}>Update</button>
                             </div>
                         </div>
