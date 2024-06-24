@@ -131,6 +131,16 @@ function Inbox() {
         }
     };
 
+    const handleUpdateChangeForDaily = async (taskId, newStatus) => {
+        console.log("status change")
+        try {
+            
+        } catch (error) {
+            console.error("Error updating task status:", error);
+            setError('An error occurred. Please try again.');
+        }
+    };
+
     return (
         <>
             <form className='new-add' onSubmit={handleSubmit}>
@@ -179,11 +189,18 @@ function Inbox() {
                     </div>
                     {
                         dailytasks.map(task => (
-                            <div className='task' >
-                                <textarea defaultValue={task.todays_task_count==0?task.dailytask:task.newTask}></textarea>
+                            <div className='task' key={task.id}>
+                                <textarea defaultValue={task.todays_task_count==0?task.dailytask:task.newTask} 
+                                onChange={(e)=>handleUpdateChangeForDaily(task.id,e.target.checked ? 'complete':'incomplete')}
+                                >
+
+                                </textarea>
+                                <div>
                                 <div>
                                     <input type='checkbox' /> &nbsp;
                                     <label >Done</label>
+                                </div>
+                                <button className='btn btn-primary mt-1' onClick={() => handleUpdate(task.id)}>Update</button>
                                 </div>
                             </div>
                         ))
