@@ -6,11 +6,13 @@ function Inbox() {
     // const [updateText, setUpdateText] = useState("");
     // const [updateId, setUpdateId] = useState("");
     const [tasks, setTasks] = useState([]);
+    const [dailytasks, setDailyTasks] = useState([]);
     const [error, setError] = useState("");
     const [updatedTasks, setUpdatedTasks] = useState({});
 
     useEffect(() => {
         fetchTasks();
+        fetchDailyTasks();
     }, []);
 
     const fetchTasks = async () => {
@@ -30,6 +32,27 @@ function Inbox() {
             setError('An error occurred. Please try again.');
         }
     };
+
+
+    const fetchDailyTasks = async () => {
+        try {
+            const username = localStorage.getItem('username');
+            const response = await axios.post(`${BASE_URL}/api/getTodayDailyTask`, {
+                username: username
+            });
+            console.log("DailyTask", response.data)
+            if (response.data.status) {
+                setDailyTasks(response.data.tasks);
+            } else {
+                setError(response.data.message);
+            }
+        } catch (error) {
+            console.error("Error fetching tasks:", error);
+            setError('An error occurred. Please try again.');
+        }
+    };
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -124,7 +147,7 @@ function Inbox() {
                         Today Specific Task
                     </div>
                     {tasks.length === 0 ? (
-                        <div style={{fontSize:'20px', textAlign: 'center', marginTop: '35px'}}>Don't have any tasks</div>
+                        <div style={{ fontSize: '20px', textAlign: 'center', marginTop: '35px' }}>Don't have any tasks</div>
                     ) : (
                         tasks.map(task => (
                             <div className='task' key={task.id}>
@@ -154,14 +177,18 @@ function Inbox() {
                     <div className='Heading'>
                         Daily Task
                     </div>
+                    {
+                        dailytasks.map(task => (
+                            <div className='task' >
+                                <textarea defaultValue={task.todays_task_count==0?task.dailytask:task.newTask}></textarea>
+                                <div>
+                                    <input type='checkbox' /> &nbsp;
+                                    <label >Done</label>
+                                </div>
+                            </div>
+                        ))
+                    }
 
-                    <div className='task' >
-                        <textarea ></textarea>
-                        <div>
-                            <input type='checkbox' /> &nbsp;
-                            <label >Done</label>
-                        </div>
-                    </div>
 
                 </div>
             </div>
