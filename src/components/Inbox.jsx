@@ -9,6 +9,7 @@ function Inbox() {
     const [dailytasks, setDailyTasks] = useState([]);
     const [error, setError] = useState("");
     const [updatedTasks, setUpdatedTasks] = useState({});
+    const [updatedDailyTasks, setUpdatedDailyTasks] = useState({});
 
     useEffect(() => {
         fetchTasks();
@@ -85,6 +86,14 @@ function Inbox() {
         });
     };
 
+
+    const handleUpdateChangeForDaily = async (taskId, value) => {
+        setUpdatedDailyTasks({
+            ...updatedDailyTasks,
+            [taskId]:value
+        })
+    };
+
     const handleUpdate = async (taskId) => {
         try {
             const updatedTaskText = updatedTasks[taskId];
@@ -131,15 +140,7 @@ function Inbox() {
         }
     };
 
-    const handleUpdateChangeForDaily = async (taskId, newStatus) => {
-        console.log("status change")
-        try {
-            
-        } catch (error) {
-            console.error("Error updating task status:", error);
-            setError('An error occurred. Please try again.');
-        }
-    };
+    
 
     return (
         <>
@@ -191,7 +192,7 @@ function Inbox() {
                         dailytasks.map(task => (
                             <div className='task' key={task.id}>
                                 <textarea defaultValue={task.todays_task_count==0?task.dailytask:task.newTask} 
-                                onChange={(e)=>handleUpdateChangeForDaily(task.id,e.target.checked ? 'complete':'incomplete')}
+                                onChange={(e)=>handleUpdateChangeForDaily(task.id,e.target.value)}
                                 >
 
                                 </textarea>
