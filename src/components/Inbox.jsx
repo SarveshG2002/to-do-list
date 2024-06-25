@@ -114,6 +114,36 @@ function Inbox() {
         }
     };
 
+    const handleUpdateDailyTask = async (taskId,count) => {
+        try {
+            const updatedTaskText = updatedDailyTasks[taskId];
+            console.log(updatedTaskText)
+            let url= `${BASE_URL}/api/insertTodayDailyTask`;
+            console.log(count,count>0)
+            if(count>0){
+                url=`${BASE_URL}/api/updateTodayDailyTask`
+            }
+            console.log(url)
+            const response = await axios.post(url, {
+                id: taskId,
+                task: updatedTaskText
+            });
+
+            console.log(response.data)
+            
+            // if (response.data.success) {
+            //     fetchTasks(); // Refresh tasks after update
+            //     // Optionally clear updatedTasks state after successful update
+            //     setUpdatedTasks({}); // Clear updatedTasks state
+            // } else {
+            //     setError(response.data.message);
+            // }
+        } catch (error) {
+            console.error("Error updating task:", error);
+            setError('An error occurred. Please try again.');
+        }
+    };
+
     const handleStatusChange = async (taskId, newStatus) => {
         console.log("status change")
         try {
@@ -201,7 +231,7 @@ function Inbox() {
                                     <input type='checkbox' /> &nbsp;
                                     <label >Done</label>
                                 </div>
-                                <button className='btn btn-primary mt-1' onClick={() => handleUpdate(task.id)}>Update</button>
+                                <button className='btn btn-primary mt-1' onClick={() => handleUpdateDailyTask(task.id,task.todays_task_count)}>Update</button>
                                 </div>
                             </div>
                         ))
