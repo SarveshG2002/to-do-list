@@ -116,7 +116,11 @@ function Inbox() {
 
     const handleUpdateDailyTask = async (taskId,count) => {
         try {
-            const updatedTaskText = updatedDailyTasks[taskId];
+            let updatedTaskText = updatedDailyTasks[taskId];
+            if (updatedTaskText === undefined) {
+                const originalTask = dailytasks.find(task => task.id === taskId);
+                updatedTaskText = count > 0 ? originalTask.newTask : originalTask.dailytask;
+            }
             console.log(updatedTaskText)
             let url= `${BASE_URL}/api/insertTodayDailyTask`;
             console.log(count,count>0)
@@ -130,14 +134,6 @@ function Inbox() {
             });
 
             console.log(response.data)
-            
-            // if (response.data.success) {
-            //     fetchTasks(); // Refresh tasks after update
-            //     // Optionally clear updatedTasks state after successful update
-            //     setUpdatedTasks({}); // Clear updatedTasks state
-            // } else {
-            //     setError(response.data.message);
-            // }
         } catch (error) {
             console.error("Error updating task:", error);
             setError('An error occurred. Please try again.');
@@ -166,6 +162,35 @@ function Inbox() {
             }
         } catch (error) {
             console.error("Error updating task status:", error);
+            setError('An error occurred. Please try again.');
+        }
+    };
+
+
+    const handleDailyStatusChange = async (taskId, newStatus,count) => {
+        try {
+            let updatedTaskText = updatedDailyTasks[taskId];
+            
+            if (updatedTaskText === undefined) {
+                const originalTask = dailytasks.find(task => task.id === taskId);
+                updatedTaskText = count > 0 ? originalTask.newTask : originalTask.dailytask;
+            }
+            console.log(updatedTaskText)
+            let url= `${BASE_URL}/api/insertTodayDailyTask`;
+            console.log(count,count>0)
+            if(count>0){
+                url=`${BASE_URL}/api/updateTodayDailyTask`
+            }
+            console.log(url)
+            const response = await axios.post(url, {
+                id: taskId,
+                task: updatedTaskText,
+                status: newStatus
+            });
+
+            console.log(response.data)
+        } catch (error) {
+            console.error("Error updating task:", error);
             setError('An error occurred. Please try again.');
         }
     };
@@ -201,8 +226,8 @@ function Inbox() {
                                         <input
                                             type='checkbox'
                                             id={`check${task.id}`}
-                                            defaultChecked={task.status === 'complete'}
-                                            onChange={(e) => handleStatusChange(task.id, e.target.checked ? 'complete' : 'incomplete')}
+                                            defaultChecked={task.status === 'Complete'}
+                                            onChange={(e) => handleStatusChange(task.id, e.target.checked ? 'Complete' : 'Pending')}
                                         /> &nbsp;
                                         <label htmlFor={`check${task.id}`}>Done</label>
                                     </div>
@@ -220,6 +245,7 @@ function Inbox() {
                     </div>
                     {
                         dailytasks.map(task => (
+
                             <div className='task' key={task.id}>
                                 <textarea defaultValue={task.todays_task_count==0?task.dailytask:task.newTask} 
                                 onChange={(e)=>handleUpdateChangeForDaily(task.id,e.target.value)}
@@ -228,7 +254,12 @@ function Inbox() {
                                 </textarea>
                                 <div>
                                 <div>
-                                    <input type='checkbox' /> &nbsp;
+                                <input
+                                            type='checkbox'
+                                            id={`check${task.id}`}
+                                            defaultChecked={task.todays_task_count==0?false:task.actual_status === 'Complete'}
+                                            onChange={(e) => handleDailyStatusChange(task.id, e.target.checked ? 'Complete' : 'Pending',task.todays_task_count)}
+                                        /> &nbsp;
                                     <label >Done</label>
                                 </div>
                                 <button className='btn btn-primary mt-1' onClick={() => handleUpdateDailyTask(task.id,task.todays_task_count)}>Update</button>
