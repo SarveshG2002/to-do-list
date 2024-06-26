@@ -96,7 +96,11 @@ function Inbox() {
 
     const handleUpdate = async (taskId) => {
         try {
-            const updatedTaskText = updatedTasks[taskId];
+            let updatedTaskText = updatedTasks[taskId];
+            if (updatedTaskText === undefined) {
+                const originalTask = tasks.find(task => task.id === taskId);
+                updatedTaskText = count > 0 ? originalTask.newTask : originalTask.dailytask;
+            }
             const response = await axios.post(`${BASE_URL}/api/updateTask`, {
                 id: taskId,
                 task: updatedTaskText
