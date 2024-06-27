@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { BASE_URL } from './Host.jsx';
+import { CiStar } from "react-icons/ci";
+import { FaStar } from "react-icons/fa";
 
 function Inbox() {
     const [text, setText] = useState("");
@@ -9,6 +11,7 @@ function Inbox() {
     const [tasks, setTasks] = useState([]);
     const [error, setError] = useState("");
     const [updatedTasks, setUpdatedTasks] = useState({});
+    const [favourite,setFavourite] = useState(0)
 
     useEffect(() => {
         fetchTasks();
@@ -42,7 +45,8 @@ function Inbox() {
             // }
             const response = await axios.post(`${BASE_URL}/api/addtodayTask`, {
                 username: username,
-                task: text
+                task: text,
+                important: favourite
             })
             console.log(response.data)
             if (response.data.success) {
@@ -73,6 +77,7 @@ function Inbox() {
             if (response.data.success) {
                 fetchTasks(); // Refresh tasks after update
                 // Optionally clear updatedTasks state after successful update
+                setFavourite(0);
                 setUpdatedTasks({}); // Clear updatedTasks state
             } else {
                 setError(response.data.message);
@@ -109,6 +114,18 @@ function Inbox() {
         }
     };
 
+
+    const changeFavourite = ()=>{
+        if(favourite==0){
+            setFavourite(1)
+        }else{
+            setFavourite(0)
+        }
+
+        console.log(favourite)
+        
+    }
+
     return (
         <>
             <form className='new-add' onSubmit={handleSubmit}>
@@ -116,30 +133,47 @@ function Inbox() {
                     {/* <input type="text" className='form-control'/> */}
                     <textarea value={text} onChange={(e) => setText(e.target.value)}></textarea>
                 </div>
-                <button className='btn btn-primary mt-3'>Add</button>
+                <div style={{ display: "flex",padding:"10px 0px 0px 0px" }}>
+                
+                    <button className='btn btn-success'>Add</button>
+                    <div className='favorite' onClick={changeFavourite} style={{color:"yello"}}>
+                        {favourite===0?<CiStar />:<FaStar color='yellow'/>}
+                    </div>
+                    
+                </div>
             </form>
 
             <div className='to-do'>
-                <div className='taskGroup'>
-                    
-                    {tasks.map(task => (
-                        <div className='task' key={task.id}>
-                            <textarea defaultValue={task.task} onChange={(e) => handleUpdateChange(task.id, e.target.value)}></textarea>
-                            <div>
+            <div className='taskGroup'>
+                    <div className='Heading'>
+                        Today Specific Task
+                    </div>
+                    {tasks.length === 0 ? (
+                        <div style={{ fontSize: '20px', textAlign: 'center', marginTop: '35px' }}>Don't have any tasks</div>
+                    ) : (
+                        tasks.map(task => (
+                            <div className='task' key={task.id} >
+                                <textarea
+                                    defaultValue={task.task}
+                                    onChange={(e) => handleUpdateChange(task.id, e.target.value)}
+                                ></textarea>
                                 <div>
-                                    <input 
-                                        type='checkbox' 
-                                        id={`check${task.id}`} 
-                                        defaultChecked={task.status === 'complete'} 
-                                        onChange={(e) => handleStatusChange(task.id, e.target.checked ? 'complete' : 'incomplete')}
+                                    <div>
+                                        <input
+                                            type='checkbox'
+                                            id={`check${task.id}`}
+                                            defaultChecked={task.status === 'Complete'}
+                                            onChange={(e) => handleStatusChange(task.id, e.target.checked ? 'Complete' : 'Pending')}
                                         /> &nbsp;
-                                    <label htmlFor={`check${task.id}`}>Done</label>
+                                        <label htmlFor={`check${task.id}`}>Done</label>
+                                        {task.important==1?<FaStar color='yellow' style={{marginLeft:"5px"}}/>:<></>}
+                                    </div>
+
+                                    <button className='btn btn-success mt-1' onClick={() => handleUpdate(task.id)}>Update</button>
                                 </div>
-                                
-                                <button className='btn btn-primary mt-1' onClick={(e) => handleUpdate(task.id)}>Update</button>
                             </div>
-                        </div>
-                    ))}
+                        ))
+                    )}
                 </div>
                 
             </div>
