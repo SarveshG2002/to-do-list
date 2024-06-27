@@ -15,8 +15,16 @@
     align-items: center;
 }
 
-.new-add{
+.TodayInfo{
     margin-top: 20px;
+    width: 90%;
+}
+
+
+
+
+.new-add{
+    
     /* background-color: aliceblue; */
     /* color: #1e1e1e; */
     border: 1px solid white;
@@ -90,6 +98,8 @@
     background-color: #1e1e1e;
     color: aliceblue;
 }
+
+
 
 
 
