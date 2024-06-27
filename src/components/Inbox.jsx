@@ -203,12 +203,13 @@ function Inbox() {
 
     return (
         <>
+        
             <form className='new-add' onSubmit={handleSubmit}>
                 <div className="form-group required">
                     {/* <input type="text" className='form-control'/> */}
                     <textarea value={text} onChange={(e) => setText(e.target.value)}></textarea>
                 </div>
-                <button className='btn btn-primary mt-3'>Add</button>
+                <button className='btn btn-success mt-3'>Add</button>
             </form>
 
             <div className='to-do'>
@@ -236,7 +237,7 @@ function Inbox() {
                                         <label htmlFor={`check${task.id}`}>Done</label>
                                     </div>
 
-                                    <button className='btn btn-primary mt-1' onClick={() => handleUpdate(task.id)}>Update</button>
+                                    <button className='btn btn-success mt-1' onClick={() => handleUpdate(task.id)}>Update</button>
                                 </div>
                             </div>
                         ))
