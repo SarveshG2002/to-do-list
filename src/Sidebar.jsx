@@ -11,11 +11,14 @@ function Sidebar() {
             <NavLink to="/dashboard/today" className={({ isActive }) => isActive ? 'sideEle sideEleSelected' : 'sideEle'}>
                 <div>Today</div>
             </NavLink>
+            <NavLink to="/dashboard/daily-task" className={({ isActive }) => isActive ? 'sideEle sideEleSelected' : 'sideEle'}>
+                <div>Daily Task</div>
+            </NavLink>
             <NavLink to="/dashboard/upcoming" className={({ isActive }) => isActive ? 'sideEle sideEleSelected' : 'sideEle'}>
                 <div>Reminders</div>
             </NavLink>
-            <NavLink to="/dashboard/daily-task" className={({ isActive }) => isActive ? 'sideEle sideEleSelected' : 'sideEle'}>
-                <div>Daily Task</div>
+            <NavLink to="/dashboard/history" className={({ isActive }) => isActive ? 'sideEle sideEleSelected' : 'sideEle'}>
+                <div>History</div>
             </NavLink>
         </aside>
     );

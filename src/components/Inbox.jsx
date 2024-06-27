@@ -1,6 +1,9 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { BASE_URL } from './Host.jsx';
+import { CiStar } from "react-icons/ci";
+import { FaStar } from "react-icons/fa";
+
 function Inbox() {
     const [text, setText] = useState("");
     // const [updateText, setUpdateText] = useState("");
@@ -10,6 +13,7 @@ function Inbox() {
     const [error, setError] = useState("");
     const [updatedTasks, setUpdatedTasks] = useState({});
     const [updatedDailyTasks, setUpdatedDailyTasks] = useState({});
+    const [favourite,setFavourite] = useState(0)
 
     useEffect(() => {
         fetchTasks();
@@ -90,7 +94,7 @@ function Inbox() {
     const handleUpdateChangeForDaily = async (taskId, value) => {
         setUpdatedDailyTasks({
             ...updatedDailyTasks,
-            [taskId]:value
+            [taskId]: value
         })
     };
 
@@ -118,7 +122,7 @@ function Inbox() {
         }
     };
 
-    const handleUpdateDailyTask = async (taskId,count) => {
+    const handleUpdateDailyTask = async (taskId, count) => {
         try {
             let updatedTaskText = updatedDailyTasks[taskId];
             if (updatedTaskText === undefined) {
@@ -126,10 +130,10 @@ function Inbox() {
                 updatedTaskText = count > 0 ? originalTask.newTask : originalTask.dailytask;
             }
             console.log(updatedTaskText)
-            let url= `${BASE_URL}/api/insertTodayDailyTask`;
-            console.log(count,count>0)
-            if(count>0){
-                url=`${BASE_URL}/api/updateTodayDailyTask`
+            let url = `${BASE_URL}/api/insertTodayDailyTask`;
+            console.log(count, count > 0)
+            if (count > 0) {
+                url = `${BASE_URL}/api/updateTodayDailyTask`
             }
             console.log(url)
             const response = await axios.post(url, {
@@ -171,19 +175,19 @@ function Inbox() {
     };
 
 
-    const handleDailyStatusChange = async (taskId, newStatus,count) => {
+    const handleDailyStatusChange = async (taskId, newStatus, count) => {
         try {
             let updatedTaskText = updatedDailyTasks[taskId];
-            
+
             if (updatedTaskText === undefined) {
                 const originalTask = dailytasks.find(task => task.id === taskId);
                 updatedTaskText = count > 0 ? originalTask.newTask : originalTask.dailytask;
             }
             console.log(updatedTaskText)
-            let url= `${BASE_URL}/api/insertTodayDailyTask`;
-            console.log(count,count>0)
-            if(count>0){
-                url=`${BASE_URL}/api/updateTodayDailyTask`
+            let url = `${BASE_URL}/api/insertTodayDailyTask`;
+            console.log(count, count > 0)
+            if (count > 0) {
+                url = `${BASE_URL}/api/updateTodayDailyTask`
             }
             console.log(url)
             const response = await axios.post(url, {
@@ -211,26 +215,45 @@ function Inbox() {
         return `${dayName}, ${monthName} ${dayNumber}`;
     };
 
-    
+
+    const changeFavourite = ()=>{
+        if(favourite==0){
+            setFavourite(1)
+        }else{
+            setFavourite(0)
+        }
+
+        console.log(favourite)
+        
+    }
+
+
 
     return (
         <>
 
-        <div className='TodayInfo'>
-            <div style={{fontSize:"25px",padding:"0px 0px 5px 0px"}}>
-                My Day
+            <div className='TodayInfo'>
+                <div style={{ fontSize: "25px", padding: "0px 0px 5px 0px" }}>
+                    My Day
+                </div>
+                <div style={{ padding: "0px 0px 30px 0px" }}>
+                    {formatDate()}
+                </div>
             </div>
-            <div style={{padding:"0px 0px 30px 0px"}}>
-            {formatDate()}
-            </div>
-        </div>
-        
+
             <form className='new-add' onSubmit={handleSubmit}>
                 <div className="form-group required">
                     {/* <input type="text" className='form-control'/> */}
                     <textarea value={text} onChange={(e) => setText(e.target.value)}></textarea>
                 </div>
-                <button className='btn btn-success mt-3'>Add</button>
+                <div style={{ display: "flex",padding:"10px 0px 0px 0px" }}>
+                
+                    <button className='btn btn-success'>Add</button>
+                    <div className='favorite' onClick={changeFavourite} style={{color:"yello"}}>
+                        {favourite===0?<CiStar />:<FaStar color='yellow'/>}
+                    </div>
+                    
+                </div>
             </form>
 
             <div className='to-do'>
@@ -273,22 +296,22 @@ function Inbox() {
                         dailytasks.map(task => (
 
                             <div className='task' key={task.id}>
-                                <textarea defaultValue={task.todays_task_count==0?task.dailytask:task.newTask} 
-                                onChange={(e)=>handleUpdateChangeForDaily(task.id,e.target.value)}
+                                <textarea defaultValue={task.todays_task_count == 0 ? task.dailytask : task.newTask}
+                                    onChange={(e) => handleUpdateChangeForDaily(task.id, e.target.value)}
                                 >
 
                                 </textarea>
                                 <div>
-                                <div>
-                                <input
+                                    <div>
+                                        <input
                                             type='checkbox'
                                             id={`check${task.id}`}
-                                            defaultChecked={task.todays_task_count==0?false:task.actual_status === 'Complete'}
-                                            onChange={(e) => handleDailyStatusChange(task.id, e.target.checked ? 'Complete' : 'Pending',task.todays_task_count)}
+                                            defaultChecked={task.todays_task_count == 0 ? false : task.actual_status === 'Complete'}
+                                            onChange={(e) => handleDailyStatusChange(task.id, e.target.checked ? 'Complete' : 'Pending', task.todays_task_count)}
                                         /> &nbsp;
-                                    <label >Done</label>
-                                </div>
-                                <button className='btn btn-primary mt-1' onClick={() => handleUpdateDailyTask(task.id,task.todays_task_count)}>Update</button>
+                                        <label >Done</label>
+                                    </div>
+                                    <button className='btn btn-primary mt-1' onClick={() => handleUpdateDailyTask(task.id, task.todays_task_count)}>Update</button>
                                 </div>
                             </div>
                         ))

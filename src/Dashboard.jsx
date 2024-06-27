@@ -20,6 +20,7 @@ function Dashboard() {
                         <Route path="/today" element={<Today />} />
                         <Route path="/upcoming" element={<Upcoming />} />
                         <Route path="/daily-task" element={<DailyTask />} />
+                        <Route path="/history" element={<Upcoming />} />
                     </Routes>
                 </div>
             </div>

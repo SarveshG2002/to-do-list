@@ -51,6 +51,15 @@
     color: aliceblue;
 }
 
+.new-add .favorite{
+    display: flex;
+    font-size: 25px;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+    /* justify-content: ??; */
+}
+
 .to-do{
     margin-top: 20px;
     width: 90%;
