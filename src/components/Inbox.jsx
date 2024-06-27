@@ -62,18 +62,20 @@ function Inbox() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log(text)
+            console.log(favourite)
             const username = localStorage.getItem('username');
             // if (!username) {
             //     throw new Error('Username not found in localStorage');
             // }
             const response = await axios.post(`${BASE_URL}/api/addtodayTask`, {
                 username: username,
-                task: text
+                task: text,
+                important: favourite
             })
             console.log(response.data)
             if (response.data.success) {
                 setText("");
+                setFavourite(0);
                 fetchTasks();
 
             }
@@ -265,7 +267,7 @@ function Inbox() {
                         <div style={{ fontSize: '20px', textAlign: 'center', marginTop: '35px' }}>Don't have any tasks</div>
                     ) : (
                         tasks.map(task => (
-                            <div className='task' key={task.id}>
+                            <div className='task' key={task.id} >
                                 <textarea
                                     defaultValue={task.task}
                                     onChange={(e) => handleUpdateChange(task.id, e.target.value)}
@@ -279,6 +281,7 @@ function Inbox() {
                                             onChange={(e) => handleStatusChange(task.id, e.target.checked ? 'Complete' : 'Pending')}
                                         /> &nbsp;
                                         <label htmlFor={`check${task.id}`}>Done</label>
+                                        {task.important==1?<FaStar color='yellow' style={{marginLeft:"5px"}}/>:<></>}
                                     </div>
 
                                     <button className='btn btn-success mt-1' onClick={() => handleUpdate(task.id)}>Update</button>
