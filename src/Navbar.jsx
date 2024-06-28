@@ -1,13 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './assets/css/Navbar.css'; // Import custom CSS for the navbar
+import { RiMenuFill } from "react-icons/ri";
 
 function Navbar() {
     return (
         <nav className="">
             <div className='navele'>
                 <div className='username'>
-                    Sarvesh@gmailcom
+                <RiMenuFill className='MenuIcon'/>
+                    <span>Sarvesh@gmailcom</span>
                 </div>
                 &emsp;
                 <div className='searchBar'>
