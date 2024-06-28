@@ -296,6 +296,9 @@ function Inbox() {
                         Daily Task
                     </div>
                     {
+                        tasks.length === 0 ? (
+                        <div style={{ fontSize: '20px', textAlign: 'center', marginTop: '35px' }}>Don't have any tasks</div>
+                    ) : (
                         dailytasks.map(task => (
 
                             <div className='task' key={task.id}>
@@ -318,7 +321,7 @@ function Inbox() {
                                 </div>
                             </div>
                         ))
-                    }
+                    )}
 
 
                 </div>

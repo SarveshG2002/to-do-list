@@ -24,3 +24,9 @@ aside .sideEleSelected{
     color: #363636;
     background-color: aliceblue;
 }
+
+@media (max-width: 1000px) {
+    aside{
+        display: none;
+    }
+}
