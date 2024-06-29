@@ -296,7 +296,7 @@ function Inbox() {
                         Daily Task
                     </div>
                     {
-                        tasks.length === 0 ? (
+                        dailytasks.length === 0 ? (
                         <div style={{ fontSize: '20px', textAlign: 'center', marginTop: '35px' }}>Don't have any tasks</div>
                     ) : (
                         dailytasks.map(task => (
