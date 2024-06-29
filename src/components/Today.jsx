@@ -126,8 +126,28 @@ function Inbox() {
         
     }
 
+    const formatDate = () => {
+        const now = new Date();
+        const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+        const dayName = weekdays[now.getDay()];
+        const monthName = monthNames[now.getMonth()];
+        const dayNumber = String(now.getDate()).padStart(2, '0');
+
+        return `${dayName}, ${monthName} ${dayNumber}`;
+    };
+
     return (
         <>
+        <div className='TodayInfo'>
+                <div style={{ fontSize: "25px", padding: "0px 0px 5px 0px" }}>
+                    Today's Task
+                </div>
+                <div style={{ padding: "0px 0px 30px 0px" }}>
+                    {formatDate()}
+                </div>
+            </div>
             <form className='new-add' onSubmit={handleSubmit}>
                 <div className="form-group required">
                     {/* <input type="text" className='form-control'/> */}

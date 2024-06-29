@@ -64,12 +64,17 @@
    
     width: 90%;
     display: flex;
-    justify-content: space-around;
+    /* justify-content: space-evenly; */
+    gap: 10px;
+}
+
+.to-do >div{
+    flex: 1;
 }
 
 .to-do .taskGroup{
     margin-top: 20px;
-    width: 45%;
+    /* width: 100%; */
     background-color: #333333;
     border-radius: 10px;
     padding: 10px;
@@ -86,6 +91,7 @@
 .to-do .task{
     margin-top: 20px;
     width: 100%;
+    /* box-sizing: border-box; */
     padding: 10px;
     border: 1px solid white;
     border-radius: 5px;

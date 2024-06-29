@@ -71,5 +71,19 @@ nav .searchBar input{
     nav .MenuIcon{
         display: block;
     }
+    
+}
+
+@media (max-width: 500px) {
+    nav .navele .username span{
+        display: none;
+
+    }
+    nav .navele .username{
+        text-align: left;
+        width: fit-content;
+        padding: 5px;
+        font-size: 25px;
+    }
 }
 
