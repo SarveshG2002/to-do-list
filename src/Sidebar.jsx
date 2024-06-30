@@ -1,10 +1,10 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { NavLink } from 'react-router-dom';
 import './assets/css/Sidebar.css';
 
-function Sidebar() {
+const Sidebar = forwardRef((props, ref) => {
     return (
-        <aside>
+        <aside ref={ref}>
             <NavLink to="/dashboard/inbox" className={({ isActive }) => isActive ? 'sideEle sideEleSelected' : 'sideEle'}>
                 <div>Inbox</div>
             </NavLink>
@@ -22,6 +22,6 @@ function Sidebar() {
             </NavLink>
         </aside>
     );
-}
+});
 
 export default Sidebar;

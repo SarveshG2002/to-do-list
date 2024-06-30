@@ -1,6 +1,5 @@
-import React,{ useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-// import React,  from 'react';
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import Inbox from "./components/Inbox";
@@ -11,16 +10,36 @@ import './assets/css/Dashboard.css';
 
 function Dashboard() {
     const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+    const sidebarRef = useRef(null);
 
-    const toggleSidebar = () => {
-        console.log("hello")
-        setIsSidebarVisible(!isSidebarVisible);
+    const toggleSidebar = (event) => {
+        event.stopPropagation();
+        setIsSidebarVisible(prevState => !prevState);
     };
+
+    const handleClickOutside = (event) => {
+        if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+            setIsSidebarVisible(false);
+        }
+    };
+
+    useEffect(() => {
+        if (isSidebarVisible) {
+            document.addEventListener("click", handleClickOutside);
+        } else {
+            document.removeEventListener("click", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("click", handleClickOutside);
+        };
+    }, [isSidebarVisible]);
+
     return (
         <>
             <Navbar toggleSidebar={toggleSidebar} />
             <div className="mainDiv">
-            {isSidebarVisible && <Sidebar />}
+                {isSidebarVisible && <Sidebar ref={sidebarRef} />}
                 <div className="content">
                     <Routes>
                         <Route path="/inbox" element={<Inbox />} />

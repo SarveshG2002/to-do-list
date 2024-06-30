@@ -8,7 +8,7 @@ function Navbar({ toggleSidebar }) {
         <nav className="">
             <div className='navele'>
                 <div className='username'>
-                <RiMenuFill className='MenuIcon' onClick={toggleSidebar}/>
+                    <RiMenuFill className='MenuIcon' onClick={toggleSidebar} />
                     <span>Sarvesh@gmailcom</span>
                 </div>
                 &emsp;
