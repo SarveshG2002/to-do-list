@@ -126,7 +126,7 @@
 
 @media (max-width: 1000px) {
     .mainDiv{
-        display: flex;
+        display: block;
         /* grid-template-columns: 300px auto; */
         height: 94vh;
     }

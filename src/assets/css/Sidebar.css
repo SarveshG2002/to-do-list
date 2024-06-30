@@ -27,6 +27,12 @@ aside .sideEleSelected{
 
 @media (max-width: 1000px) {
     aside{
-        display: none;
+        /* display: none; */
+        position: fixed;
+        z-index: 20;
+        width: 200px;
+        height: 100vh;
+        margin-top: 55px;
     }
+    
 }
