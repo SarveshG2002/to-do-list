@@ -9,7 +9,7 @@ import DailyTask from "./components/DailyTask";
 import './assets/css/Dashboard.css';
 
 function Dashboard() {
-    const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+    const [isSidebarVisible, setIsSidebarVisible] = useState(false);
     const sidebarRef = useRef(null);
 
     const toggleSidebar = (event) => {
@@ -18,17 +18,24 @@ function Dashboard() {
     };
 
     const handleClickOutside = (event) => {
-        if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        if (sidebarRef.current && !sidebarRef.current.contains(event.target) && window.innerWidth < 1000) {
             setIsSidebarVisible(false);
         }
     };
 
     useEffect(() => {
+
+        if(window.innerWidth > 1000){
+            setIsSidebarVisible(true)   
+        }
+
         if (isSidebarVisible) {
             document.addEventListener("click", handleClickOutside);
         } else {
             document.removeEventListener("click", handleClickOutside);
         }
+
+        
 
         return () => {
             document.removeEventListener("click", handleClickOutside);
