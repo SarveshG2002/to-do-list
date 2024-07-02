@@ -14,12 +14,12 @@ export default function History() {
     setLoading(true);
     try {
       const response = await axios.post(`${BASE_URL}/api/getCombinedTasksByDate`, {
-        username: localStorage.getItem('username'), // Replace with actual username
+        username: localStorage.getItem('username'),
         date: '2023-07-01', // Replace with actual date or make it dynamic
         page: page,
-        limit: 1 // Number of items per page
+        limit: 5 // Number of items per page
       });
-      console.log(response)
+      console.log(response);
       const newTasks = response.data.tasks;
       
       setTasks(prevTasks => [...prevTasks, ...newTasks]);
@@ -33,23 +33,25 @@ export default function History() {
   }, [loading, hasMore, page]);
 
   useEffect(() => {
-    loadTasks();
+    loadTasks(); // Initial load
   }, []);
 
   // Function to handle scroll
-  const handleScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop
-      === document.documentElement.offsetHeight
-    ) {
+  const handleScroll = useCallback(() => {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+    const clientHeight = document.documentElement.clientHeight || window.innerHeight;
+
+    // Check if user has scrolled to the bottom
+    if (scrollTop + clientHeight >= scrollHeight - 5) {
       loadTasks();
     }
-  };
+  }, [loadTasks]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [loadTasks]);
+  }, [handleScroll]);
 
   return (
     <div>
