@@ -6,6 +6,7 @@ import Inbox from "./components/Inbox";
 import Today from "./components/Today";
 import Upcoming from "./components/Upcoming";
 import DailyTask from "./components/DailyTask";
+import History from "./components/History";
 import './assets/css/Dashboard.css';
 
 function Dashboard() {
@@ -53,7 +54,7 @@ function Dashboard() {
                         <Route path="/today" element={<Today />} />
                         <Route path="/upcoming" element={<Upcoming />} />
                         <Route path="/daily-task" element={<DailyTask />} />
-                        <Route path="/history" element={<Upcoming />} />
+                        <Route path="/history" element={<History />} />
                     </Routes>
                 </div>
             </div>
