@@ -54,6 +54,9 @@ export default function History() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
+
+  
+
   return (
     <div className='HistoryDiv'>
 
@@ -61,26 +64,30 @@ export default function History() {
         <h1>History</h1>
         <hr style={{ borderTop: "0.5px solid grey" }} />
         <div className='Data'>
-          <div>
+        {tasks.map(task => (
+          <div key={task.id} className='DataDiv'>
+          
             <div className='DataTask'>
-              <textarea readOnly className='form-control'>Third Daily Task</textarea>
+              <textarea readOnly className='form-control'>{task.task}</textarea>
             </div>
             <div className='Info'>
-              <span className='badge badge-primary'>2024-07-02 20:51:08</span>
+            <span className='badge badge-primary '>{task.created_at}</span> &nbsp;
+              <span className='badge badge-success'>Updated</span> &nbsp;
+              <span className='badge badge-warning'>Daily Task</span>
             </div>
+            <hr style={{ borderTop: "0.5px solid grey" }} />
+            
           </div>
+          
+        ))}
+
+        {loading && <p>Loading...</p>}
+      {!hasMore && <p>No more tasks to load.</p>}
+
         </div>
       </div>
-      {tasks.map(task => (
-        <div key={task.id} style={{ display: "none" }}>
-          <h3>{task.task}</h3>
-          <p>Status: {task.status}</p>
-          <p>Created at: {task.created_at}</p>
-        </div>
-      ))}
 
-      {loading && <p>Loading...</p>}
-      {!hasMore && <p>No more tasks to load.</p>}
+      
     </div>
   );
 }

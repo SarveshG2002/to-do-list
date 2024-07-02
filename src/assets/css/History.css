@@ -1,11 +1,10 @@
-.HistoryDiv{
+.HistoryDiv {
     width: 90%;
-    background-color: #333333;
+    background-color: rgba(51, 51, 51, 0.8); /* Adjust the alpha value to control transparency */
     margin-top: 50px;
     padding: 20px;
     border-radius: 5px;
     box-sizing: border-box;
-
 }
 
 .HistoryDiv .Data{
@@ -15,15 +14,24 @@
 }
 
 .HistoryDiv .Data textarea{
-    width: 90%;
+    width: 100%;
     display: block;
     border: none;
     border-bottom: 1px solid #999;
     /* padding: 6px 30px; */
+    margin-top: 10px;
     font-family: Poppins;
     box-sizing: border-box;
     background-color: #1e1e1e;
     color: aliceblue;
+}
+
+.HistoryDiv .Data .DataDiv{
+    background-color: #4a4a4a;
+    margin-top: 50px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
 }
 
 .HistoryDiv .Info{
