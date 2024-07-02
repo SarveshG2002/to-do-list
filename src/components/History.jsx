@@ -64,16 +64,20 @@ export default function History() {
         <h1>History</h1>
         <hr style={{ borderTop: "0.5px solid grey" }} />
         <div className='Data'>
-        {tasks.map(task => (
-          <div key={task.id} className='DataDiv'>
+        {tasks.map((task,index) => (
+          <div key={index} className='DataDiv'>
           
             <div className='DataTask'>
-              <textarea readOnly className='form-control'>{task.task}</textarea>
+              <textarea readOnly className='form-control' defaultValue={task.task}></textarea>
             </div>
             <div className='Info'>
             <span className='badge badge-primary '>{task.created_at}</span> &nbsp;
-              <span className='badge badge-success'>Updated</span> &nbsp;
-              <span className='badge badge-warning'>Daily Task</span>
+            <span className={`badge ${task.status === 'Pending' ? 'badge-danger' : 'badge-success'}`}>
+              {task.status === 'Pending' ? 'Pending' : 'Updated'}
+            </span> &nbsp;
+              <span className={`badge ${task.source=="todays_daily_task" ? "badge-warning":"badge-info"}`}>
+              {`${task.source=="todays_daily_task" ? "Daily Task":"Today's Task"}`}
+              </span>
             </div>
             <hr style={{ borderTop: "0.5px solid grey" }} />
             
