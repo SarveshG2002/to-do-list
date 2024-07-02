@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { BASE_URL } from './Host.jsx';
 import axios from 'axios';
+import '../assets/css/History.css';
 
 export default function History() {
   const [tasks, setTasks] = useState([]);
@@ -21,7 +22,7 @@ export default function History() {
       });
       console.log(response);
       const newTasks = response.data.tasks;
-      
+
       setTasks(prevTasks => [...prevTasks, ...newTasks]);
       setPage(prevPage => prevPage + 1);
       setHasMore(newTasks.length > 0);
@@ -54,15 +55,30 @@ export default function History() {
   }, [handleScroll]);
 
   return (
-    <div>
-      <h1>History</h1>
+    <div className='HistoryDiv'>
+
+      <div>
+        <h1>History</h1>
+        <hr style={{ borderTop: "0.5px solid grey" }} />
+        <div className='Data'>
+          <div>
+            <div className='DataTask'>
+              <textarea readOnly className='form-control'>Third Daily Task</textarea>
+            </div>
+            <div className='Info'>
+              <span className='badge badge-primary'>2024-07-02 20:51:08</span>
+            </div>
+          </div>
+        </div>
+      </div>
       {tasks.map(task => (
-        <div key={task.id}>
+        <div key={task.id} style={{ display: "none" }}>
           <h3>{task.task}</h3>
           <p>Status: {task.status}</p>
           <p>Created at: {task.created_at}</p>
         </div>
       ))}
+
       {loading && <p>Loading...</p>}
       {!hasMore && <p>No more tasks to load.</p>}
     </div>

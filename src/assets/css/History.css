@@ -1,0 +1,33 @@
+.HistoryDiv{
+    width: 90%;
+    background-color: #333333;
+    margin-top: 50px;
+    padding: 20px;
+    border-radius: 5px;
+    box-sizing: border-box;
+
+}
+
+.HistoryDiv .Data{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.HistoryDiv .Data textarea{
+    width: 90%;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #999;
+    /* padding: 6px 30px; */
+    font-family: Poppins;
+    box-sizing: border-box;
+    background-color: #1e1e1e;
+    color: aliceblue;
+}
+
+.HistoryDiv .Info{
+    margin-top: 10px;
+}
+
+
