@@ -126,6 +126,7 @@ function Inbox() {
 
     const handleUpdateDailyTask = async (taskId, count) => {
         try {
+            console.log("updatedDailyTasks",updatedDailyTasks);
             let updatedTaskText = updatedDailyTasks[taskId];
             if (updatedTaskText === undefined) {
                 const originalTask = dailytasks.find(task => task.id === taskId);
@@ -144,6 +145,13 @@ function Inbox() {
             });
 
             console.log(response.data)
+            if (response.data.success) {
+                fetchDailyTasks(); // Refresh tasks after update
+                // Optionally clear updatedTasks state after successful update
+                // setUpdatedTasks({}); // Clear updatedTasks state
+            } else {
+                setError(response.data.message);
+            }
         } catch (error) {
             console.error("Error updating task:", error);
             setError('An error occurred. Please try again.');
@@ -199,6 +207,14 @@ function Inbox() {
             });
 
             console.log(response.data)
+            if (response.data.success) {
+                fetchDailyTasks(); // Refresh tasks after update
+                // Optionally clear updatedTasks state after successful update
+                // setUpdatedTasks({}); // Clear updatedTasks state
+            } else {
+                console.log("error error",response.data.succes)
+                setError(response.data.message);
+            }
         } catch (error) {
             console.error("Error updating task:", error);
             setError('An error occurred. Please try again.');
