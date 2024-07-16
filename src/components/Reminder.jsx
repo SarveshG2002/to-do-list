@@ -21,7 +21,7 @@ function Inbox() {
     const fetchTasks = async () => {
         try {
             const username = localStorage.getItem('username');
-            const response = await axios.post(`${BASE_URL}/api/getTodayTasks`, {
+            const response = await axios.post(`${BASE_URL}/api/getFutureTasks`, {
                 username: username
             });
             console.log(response.data)
@@ -171,7 +171,7 @@ function Inbox() {
             <div className='to-do'>
             <div className='taskGroup'>
                     <div className='Heading'>
-                        Today Specific Task
+                        Future Tasks
                     </div>
                     {tasks.length === 0 ? (
                         <div style={{ fontSize: '20px', textAlign: 'center', marginTop: '35px' }}>Don't have any tasks</div>
