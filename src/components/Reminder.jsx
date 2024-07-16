@@ -9,6 +9,7 @@ function Inbox() {
     // const [updateText, setUpdateText] = useState("");
     // const [updateId, setUpdateId] = useState("");
     const [tasks, setTasks] = useState([]);
+    const [date, setDate] = useState("");
     const [error, setError] = useState("");
     const [updatedTasks, setUpdatedTasks] = useState({});
     const [favourite,setFavourite] = useState(0)
@@ -46,7 +47,8 @@ function Inbox() {
             const response = await axios.post(`${BASE_URL}/api/addtodayTask`, {
                 username: username,
                 task: text,
-                important: favourite
+                important: favourite,
+                today_date: date,
             })
             console.log(response.data)
             if (response.data.success) {
@@ -150,7 +152,7 @@ function Inbox() {
             </div>
             <form className='new-add' onSubmit={handleSubmit}>
             <div className="form-group required">
-                <input type="date" className='' required/>
+                <input type="date" className='' onChange={(e) => setDate(e.target.value)} required/>
             </div>
                 <div className="form-group required">
                     {/* <input type="text" className='form-control'/> */}
