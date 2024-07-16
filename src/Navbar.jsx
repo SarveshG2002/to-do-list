@@ -17,7 +17,7 @@ function Navbar({ toggleSidebar }) {
                 </div>
             </div>
             <div className='navele'>
-                <button className='logoutButton' onClick={() => { localStorage.removeItem('username'); window.location.reload(); }}>Logout</button>
+                <button className='logoutButton' onClick={() => { localStorage.removeItem('username'); window.location.href="/"; }}>Logout</button>
             </div>
         </nav>
     );
